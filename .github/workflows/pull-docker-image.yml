@@ -1,0 +1,19 @@
+name: Pull Docker Image on Schedule
+
+on:
+    schedule:
+      - cron: "0,15,30,45 * * * *"
+    workflow_dispatch:
+
+jobs:
+    pull-docker-image:
+        runs-on: ubuntu-latest
+        steps:
+          - name: 📦 Checkout
+            uses: actions/checkout@v4
+
+          - name: ⬇️ Pull Docker Image
+            run: |
+              IMAGE_NAME="louislam/dockge:1.4.2"
+              docker pull $IMAGE_NAME
+              echo "Image pulled at: $(date)"
